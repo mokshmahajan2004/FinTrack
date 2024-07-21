@@ -2,13 +2,16 @@ import React from 'react'
 import "./style.css";
 
 function Header() {
+  function logoutFnc(){
+    alert("Logout!");
+  }
   return (
     <div className='navbar'>
-
-        Header
+      <p className='logo'>FinTrack</p>
+      <p className='logo link'onClick={logoutFnc}>Logout</p>
     </div>
   )
 }
-//abc
+
 
 export default Header
