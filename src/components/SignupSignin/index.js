@@ -1,9 +1,9 @@
-import React from 'react'
-
+import React from 'react';
+import "./style.css";
 function SignupSigninComponent() {
   return (
-    <div>
-      
+    <div className='signup-wrapper'>
+      SignupSigninComponent
     </div>
   )
 }
