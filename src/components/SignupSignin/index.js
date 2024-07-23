@@ -3,7 +3,7 @@ import "./style.css";
 function SignupSigninComponent() {
   return (
     <div className='signup-wrapper'>
-      SignupSigninComponent
+     <h2 className='title'>Sign Up on <span style={{color:"var(--theme)"}}>FinTrack.</span></h2>
     </div>
   )
 }
