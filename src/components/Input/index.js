@@ -1,6 +1,6 @@
 import React from 'react'
 import "./styles.css"
-function Index({label, state,setState,placeholder}) {
+function Input({label, state,setState,placeholder}) {
   return (
     <div className='input-wrapper'>
         <p className='label-input'>{label}</p>
@@ -14,4 +14,4 @@ function Index({label, state,setState,placeholder}) {
   )
 }
 
-export default Index
+export default Input
