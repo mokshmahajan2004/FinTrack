@@ -2,16 +2,40 @@ import React, { useState } from "react";
 import "./style.css";
 import Input from "../Input";
 import Button from "../Button";
+import { toast } from "react-toastify";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
+
 function SignupSigninComponent() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
   function signupWithEmail() {
     console.log("Name", name);
     console.log("email", email);
     console.log("password", password);
     console.log("confirmPassword", confirmPassword);
+    //Authenticate the user or create a new account using email and password
+    if (name != "" && email != "" && password != "" && confirmPassword != "") {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log("User>>>", user);
+          toast.success("User Created!");
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          toast.error(errorMessage);
+          // ..
+        });
+    } else {
+      toast.error("All fields are mandatory ");
+    }
   }
 
   return (
@@ -27,7 +51,7 @@ function SignupSigninComponent() {
           placeholder={"John Doe"}
         />
         <Input
-        type="email"
+          type="email"
           label={"Email"}
           state={email}
           setState={setEmail}
