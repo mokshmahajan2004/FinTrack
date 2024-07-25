@@ -16,9 +16,14 @@
 .btn:hover{
     background-color: var(--theme);
     color: #fff;
+    transition: all 0.3s;
+}
+.btn-blue{
+    background-color: var(--theme);
+    color: #fff;
 }
 .btn-blue:hover{
-    background-color: #fff;
-    color: var(--theme);
+    background-color: #fff !important;
+    color: var(--theme) !important;
     transition: all 0.3s;
 }

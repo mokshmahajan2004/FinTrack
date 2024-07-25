@@ -7,6 +7,13 @@ function SignupSigninComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  function signupWithEmail() {
+    console.log("Name", name);
+    console.log("email", email);
+    console.log("password", password);
+    console.log("confirmPassword", confirmPassword);
+  }
+
   return (
     <div className="signup-wrapper">
       <h2 className="title">
@@ -20,24 +27,32 @@ function SignupSigninComponent() {
           placeholder={"John Doe"}
         />
         <Input
+        type="email"
           label={"Email"}
           state={email}
           setState={setEmail}
           placeholder={"JohnDoe@gmail.com"}
         />
         <Input
+          type="password"
           label={"Password"}
           state={password}
           setState={setPassword}
           placeholder={"Example@123"}
         />
         <Input
+          type="password"
           label={"Confirm Password"}
           state={confirmPassword}
           setState={setConfirmPassword}
           placeholder={"Example@123"}
         />
-        <Button text={"SignUp using Email and Password"}/>
+        <Button
+          text={"SignUp using Email and Password"}
+          onClick={signupWithEmail}
+        />
+        <p style={{ textAlign: "center", margin: 0 }}>OR</p>
+        <Button text={"SignUp using Google"} blue={true} />
       </form>
     </div>
   );
