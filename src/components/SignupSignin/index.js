@@ -81,5 +81,5 @@ function SignupSigninComponent() {
     </div>
   );
 }
-//BC
+
 export default SignupSigninComponent;
