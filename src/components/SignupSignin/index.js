@@ -11,30 +11,35 @@ function SignupSigninComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading,setLoading]=useState(false);
 
   function signupWithEmail() {
+    setLoading(true);
     console.log("Name", name);
     console.log("email", email);
     console.log("password", password);
     console.log("confirmPassword", confirmPassword);
     //Authenticate the user or create a new account using email and password
-    if (name != "" && email != "" && password != "" && confirmPassword != "") {
+    if (name !== "" && email !== "" && password !== "" && confirmPassword !== "") {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
           console.log("User>>>", user);
           toast.success("User Created!");
+          setLoading(false);
           // ...
         })
         .catch((error) => {
-          const errorCode = error.code;
+          // const errorCode = error.code;
           const errorMessage = error.message;
           toast.error(errorMessage);
+          setLoading(false);
           // ..
         });
     } else {
       toast.error("All fields are mandatory ");
+      setLoading(false);
     }
   }
 
