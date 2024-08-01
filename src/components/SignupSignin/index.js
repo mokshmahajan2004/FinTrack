@@ -37,7 +37,7 @@ function SignupSigninComponent() {
           setEmail("");
           setConfirmPassword("");
           // Create A doc with User id as the following id
-          createDoc(user);
+          createDocs(user);
           navigate('/dashboard');
         })
         .catch((error) => {
@@ -81,27 +81,30 @@ function SignupSigninComponent() {
 
 
   }
-  async function createDoc(user){
-    //Make sure that the doc with the uid doesn't exist
-    //Create a doc
-    if (!user)return;
-    const userRef=doc(db,"users",user.uid);
-    const userData=await getDoc(userRef);
-    if(!userData.exists()){
-    try{
-      await setDoc(doc(db,"users",user.uid),{
-        name:user.displayName? user.displayName:name,
-        email:user.email,
-        photoUrL: user.photoUrL ? user.photoUrL:"",
-        createdAt:new Date(),
-      });
-      toast.success("Doc created!");
-    } catch(e){
-      toast.error(e.message);
+  async function createDocs(user) {
+    // Make sure that the doc with the uid doesn't exist
+    // Create a doc
+    if (!user) return;
+    const userRef = doc(db, "users", user.uid);
+    const userData = await getDoc(userRef); // Use getDoc for a single document
+  
+    if (!userData.exists()) {
+      try {
+        await setDoc(userRef, { // Use setDoc for a single document
+          name: user.displayName ? user.displayName : "Unknown", // Use a fallback value for name
+          email: user.email,
+          photoURL: user.photoURL ? user.photoURL : "", // Corrected to photoURL
+          createdAt: new Date(),
+        });
+        toast.success("Doc created!");
+      } catch (e) {
+        toast.error(e.message);
+      }
+    } else {
+      toast.error("Doc already exists");
     }
-  }else{
-    toast.error("Doc Already exists");
-  }}
+  }
+  
   return (
     <>
     {loginForm? ( <div className="signup-wrapper">
