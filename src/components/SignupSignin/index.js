@@ -5,9 +5,8 @@ import Button from "../Button";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db, doc, setDoc } from "../../firebase";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getDoc } from "firebase/firestore";
-
 function SignupSigninComponent() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,6 +14,7 @@ function SignupSigninComponent() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loginForm,setLoginForm]=useState(false)
   const [loading,setLoading]=useState(false);
+  const navigate = useNavigate();
 
   function signupWithEmail() {
     setLoading(true);
@@ -38,7 +38,7 @@ function SignupSigninComponent() {
           setConfirmPassword("");
           // Create A doc with User id as the following id
           createDoc(user);
-          Navigate("/dashboard");
+          navigate('/dashboard');
         })
         .catch((error) => {
           // const errorCode = error.code;
@@ -67,7 +67,7 @@ function SignupSigninComponent() {
     const user = userCredential.user;
     toast.success("User Logged In!");
     console.log("User Logged In",user);
-    Navigate("/dashboard");
+    navigate('/dashboard');
     // ...
   })
   .catch((error) => {
