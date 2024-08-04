@@ -7,8 +7,8 @@ function Cards() {
     <div>
         <Row className='my-row'>
             <Card className='my-card' title="Current Balance">
-                0 Rupees
-                < Button text="Reset Balance"/>
+                0 Rs.
+                < Button text="Reset Balance" blue={true}/>
             </Card>
         </Row>
     </div>
