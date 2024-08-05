@@ -1,8 +1,10 @@
 .my-card{
     box-shadow: var(--shadow);
     min-width: 300px;
-    padding: 0.2rem !important;
+    margin: 2rem;
     font-family: "Montserrat","sans-serif" !important ;
+    border-radius: 0.5rem;
+    flex: 1;
 }
 
 .my-row{

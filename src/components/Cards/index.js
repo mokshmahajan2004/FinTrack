@@ -10,6 +10,14 @@ function Cards() {
                 0 Rs.
                 < Button text="Reset Balance" blue={true}/>
             </Card>
+            <Card className='my-card' title="Current Balance">
+                0 Rs.
+                < Button text="Reset Balance" blue={true}/>
+            </Card>
+            <Card className='my-card' title="Current Balance">
+                0 Rs.
+                < Button text="Reset Balance" blue={true}/>
+            </Card>
         </Row>
     </div>
   )
