@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import Cards from "../components/Cards";
+import { Modal } from "antd";
 
 function Dashboard() {
   const [isExpenseModalVisible, setIsExpenseModalVisible] = useState(false);
@@ -29,6 +30,21 @@ function Dashboard() {
         handleExpenseCancel={handleExpenseCancel}
         handleIncomeCancel={handleIncomeCancel}
       />
+      <Modal
+        style={{ fontWeight: 600 }}
+        title="Add Income"
+        open={isIncomeModalVisible}
+        onCancel={handleIncomeCancel}
+        footer={null}
+      >
+        Income
+      </Modal>
+      <Modal style={{ fontWeight: 600 }}
+        title="Add Expense"
+        open={isExpenseModalVisible}
+        onCancel={handleExpenseCancel}
+        footer={null}>Expense
+        </Modal>
     </div>
   );
 }
