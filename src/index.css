@@ -17,3 +17,18 @@ body {
 input{
   font-family: "Montserrat", sans-serif;
 }
+.custom-input {
+  margin-top: -1rem !important;
+}
+
+.input-wrapper input::placeholder,
+.custom-input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.input-wrapper input:focus,
+.custom-input:focus {
+  outline: none;
+  opacity: 1;
+  transition: all 0.3s;
+}
