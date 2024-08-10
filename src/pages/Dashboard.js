@@ -4,6 +4,7 @@ import Cards from "../components/Cards";
 import { Modal } from "antd";
 import AddExpenseModal from "../Modals/addExpense";
 import AddIncomeModal from "../Modals/addIncome";
+import moment from "moment";
 
 function Dashboard() {
   const [isExpenseModalVisible, setIsExpenseModalVisible] = useState(false);
@@ -24,7 +25,10 @@ function Dashboard() {
     setIsIncomeModalVisible(false);
   };
   const onFinish=(values,type)=>{
-    console.log("On Finish",values,type)
+    const newTransaction={
+      type:type,
+      date:moment()
+    }
   }
   return (
     <div>
