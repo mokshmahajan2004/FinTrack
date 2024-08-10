@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Cards from "../components/Cards";
-import { Modal } from "antd";
 import AddExpenseModal from "../Modals/addExpense";
 import AddIncomeModal from "../Modals/addIncome";
 import moment from "moment";
@@ -14,22 +13,9 @@ function Dashboard() {
   const [user] = useAuthState(auth);
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState([false]);
-  // const transactions = [
-  //   {
-  //     type: "income",
-  //     amount: 1200,
-  //     tag: "salary",
-  //     name: "income1",
-  //     date: "2023-05-23",
-  //   },
-  //   {
-  //     type: "expense",
-  //     amount: 1200,
-  //     tag: "food",
-  //     name: "expense1",
-  //     date: "2023-05-17",
-  //   },
-  // ];
+  const [income, setIncome] = useState(0);
+  const [expense, setExpense] = useState(0);
+  const [totalBalance, setTotalBalance] = useState(0);
   const [isExpenseModalVisible, setIsExpenseModalVisible] = useState(false);
   const [isIncomeModalVisible, setIsIncomeModalVisible] = useState(false);
   const showExpenseModal = () => {
@@ -65,6 +51,10 @@ function Dashboard() {
       );
       console.log("Document written with ID:", docRef.id);
       toast.success("Transaction Added");
+      let newArr = transactions;
+      newArr.push(transaction);
+      setTransactions(newArr);
+      calculateBalance();
     } catch (e) {
       console.error("Error adding document:", e);
       toast.error("Couldn't add transaction");
@@ -82,12 +72,31 @@ function Dashboard() {
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         transactionsArray.push(doc.data());
+        console.log("transactionsArray", transactionsArray);
       });
       setTransactions(transactionsArray);
       toast.success("Transactions Fetched!");
     }
     setLoading(false);
   }
+  useEffect(() => {
+    calculateBalance();
+  }, [transactions]);
+
+  const calculateBalance = () => {
+    let incomeTotal = 0;
+    let expensesTotal = 0;
+    transactions.forEach((transaction) => {
+      if (transaction.type === "income") {
+        incomeTotal += transaction.amount;
+      } else {
+        expensesTotal += transaction.amount;
+      }
+    });
+    setIncome(incomeTotal);
+    setExpense(expensesTotal);
+    setTotalBalance(incomeTotal - expensesTotal);
+  };
   return (
     <div>
       <Header />
@@ -96,10 +105,11 @@ function Dashboard() {
       ) : (
         <>
           <Cards
+            income={income}
+            expense={expense}
+            totalBalance={totalBalance}
             showExpenseModal={showExpenseModal}
             showIncomeModal={showIncomeModal}
-            handleExpenseCancel={handleExpenseCancel}
-            handleIncomeCancel={handleIncomeCancel}
           />
           <AddExpenseModal
             isExpenseModalVisible={isExpenseModalVisible}
