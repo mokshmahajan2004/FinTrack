@@ -1,7 +1,11 @@
-import { Table } from "antd";
-import React from "react";
+import { Radio, Select, Table } from "antd";
+import React, { useState } from "react";
 
 function TransactionsTable({ transactions }) {
+  const { Option } = Select;
+  const [search, setSearch] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
+  const [sortKey, setSortKey] = useState("");
   const columns = [
     {
       title: "Name",
@@ -29,10 +33,40 @@ function TransactionsTable({ transactions }) {
       key: "date",
     },
   ];
+  let filteredTransactions = transactions.filter(
+    (item) =>
+      item.name.toLowerCase().includes(search.toLowerCase()) &&
+      item.type.includes(typeFilter)
+  );
 
   return (
     <>
-      <Table dataSource={transactions} columns={columns} />;
+      <input
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search By Name"
+      />
+      <Select
+        className="select-input"
+        onChange={(value) => setTypeFilter(value)}
+        value={typeFilter}
+        placeholder="Filter"
+        allowClear
+      >
+        <Option value="">All</Option>
+        <Option value="income">Income</Option>
+        <Option value="expense">Expense</Option>
+      </Select>
+      <Radio.Group
+        className="input-radio"
+        onChange={(e) => setSortKey(e.target.value)}
+        value={sortKey}
+      >
+        <Radio.Button value="">No Sort</Radio.Button>
+        <Radio.Button value="date">Sort by Date</Radio.Button>
+        <Radio.Button value="amount">Sort by Amount</Radio.Button>
+      </Radio.Group>
+      <Table dataSource={filteredTransactions} columns={columns} />;
     </>
   );
 }
