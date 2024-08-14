@@ -1,6 +1,6 @@
 import { Radio, Select, Table } from "antd";
 import React, { useState } from "react";
-
+import searchImg from "../../assets/search.svg";
 function TransactionsTable({ transactions }) {
   const { Option } = Select;
   const [search, setSearch] = useState("");
@@ -50,11 +50,14 @@ function TransactionsTable({ transactions }) {
 
   return (
     <>
-      <input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search By Name"
-      />
+      <div className="input-flex">
+        <img src={searchImg} alt="SearchImage" width="16" />
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search By Name"
+        />
+      </div>
       <Select
         className="select-input"
         onChange={(value) => setTypeFilter(value)}
