@@ -38,6 +38,15 @@ function TransactionsTable({ transactions }) {
       item.name.toLowerCase().includes(search.toLowerCase()) &&
       item.type.includes(typeFilter)
   );
+  let sortedTransactions = filteredTransactions.sort((a, b) => {
+    if (sortKey === "date") {
+      return new Date(a.date) - new Date(b.date);
+    } else if (sortKey === "amount") {
+      return a.amount - b.amount;
+    } else {
+      return 0;
+    }
+  });
 
   return (
     <>
@@ -66,7 +75,7 @@ function TransactionsTable({ transactions }) {
         <Radio.Button value="date">Sort by Date</Radio.Button>
         <Radio.Button value="amount">Sort by Amount</Radio.Button>
       </Radio.Group>
-      <Table dataSource={filteredTransactions} columns={columns} />;
+      <Table dataSource={sortedTransactions} columns={columns} />;
     </>
   );
 }

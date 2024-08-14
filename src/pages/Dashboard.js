@@ -37,7 +37,7 @@ function Dashboard() {
   const onFinish = (values, type) => {
     const newTransaction = {
       type: type,
-      date: moment(values.date).format("YYYY-MM-DD"),
+      date: values.date.format("YYYY-MM-DD"),
       amount: parseFloat(values.amount),
       tag: values.tag,
       name: values.name,
@@ -63,7 +63,7 @@ function Dashboard() {
   }
   useEffect(() => {
     fetchTransactions();
-  }, []);
+  }, [user]);
   async function fetchTransactions() {
     setLoading(true);
     if (user) {
