@@ -85,6 +85,9 @@ function Dashboard() {
     calculateBalance();
   }, [transactions]);
 
+  function reset() {
+    console.log("resetting");
+  }
   const calculateBalance = () => {
     let incomeTotal = 0;
     let expensesTotal = 0;
@@ -115,6 +118,7 @@ function Dashboard() {
             totalBalance={totalBalance}
             showExpenseModal={showExpenseModal}
             showIncomeModal={showIncomeModal}
+            reset={reset}
           />
           {transactions.length !== 0 ? (
             <ChartComponent sortedTransactions={sortedTransactions} />
