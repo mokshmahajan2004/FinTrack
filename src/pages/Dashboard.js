@@ -3,12 +3,13 @@ import Header from "../components/Header";
 import Cards from "../components/Cards";
 import AddExpenseModal from "../Modals/addExpense";
 import AddIncomeModal from "../Modals/addIncome";
-import moment from "moment";
 import { addDoc, collection, getDocs, query } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { auth, db } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import TransactionsTable from "../components/TransactionsTable";
+import ChartComponent from "../components/Charts";
+import NoTransactions from "../components/NoTransactions/NoTransactions";
 
 function Dashboard() {
   const [user] = useAuthState(auth);
@@ -98,6 +99,9 @@ function Dashboard() {
     setExpense(expensesTotal);
     setTotalBalance(incomeTotal - expensesTotal);
   };
+  let sortedTransactions = transactions.sort((a, b) => {
+    return new Date(a.date) - new Date(b.date);
+  });
   return (
     <div>
       <Header />
@@ -112,6 +116,11 @@ function Dashboard() {
             showExpenseModal={showExpenseModal}
             showIncomeModal={showIncomeModal}
           />
+          {transactions.length !== 0 ? (
+            <ChartComponent sortedTransactions={sortedTransactions} />
+          ) : (
+            <NoTransactions />
+          )}
           <AddExpenseModal
             isExpenseModalVisible={isExpenseModalVisible}
             handleExpenseCancel={handleExpenseCancel}
